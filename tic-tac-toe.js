@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
       square.classList.add('square', 'empty');
       square.dataset.index = index;
 
+      
+
       square.addEventListener('click', () => {
         if(square.classList.contains('empty')){
             square.classList.remove('empty');
@@ -17,5 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
             currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
             }
         });
+      
+      square.addEventListener('mouseenter', () => {
+        //if (square.classList.contains('empty')) {
+          square.classList.add('hover');
+        //} 
+      });   
+
+      square.addEventListener('mouseleave', () => {
+        square.classList.remove('hover');
+      });  
     });
   });
