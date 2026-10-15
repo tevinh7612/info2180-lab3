@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // On click if a user clicks on empty square, it should return a X or O
     board.addEventListener("click", e => move(e, childElemsOfBoard));
-
+    // On mouseover applies "hover" class to gameboard square.
+    board.addEventListener("mouseover", e => editClassOnHover(e))
+    // On mouseover removes "hover" class to gameboard square.
+    board.addEventListener("mouseout", e => editClassOnHover(e))
 });
 
 const players = ["X", "O"];
@@ -30,6 +33,19 @@ function move(event, elemList){
         gameState[selectedCellIndex] = currentPlayer;
         currentRound++;
         currentPlayer = players[currentRound%2];
+        console.log(gameState)
     }   
 }
     
+function editClassOnHover(event){
+
+    const selectedCell = event.target;
+    const selectedCellEvent = event.type;
+    const selectedCellIsSquare = selectedCell.classList.contains("square");
+
+    if (selectedCellIsSquare && selectedCellEvent === "mouseover"){
+        selectedCell.classList.add("hover");
+    } else if (selectedCellIsSquare && selectedCellEvent === "mouseout"){
+        selectedCell.classList.remove("hover");
+    }
+}
