@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const board = document.getElementById("board");
     const childElemsOfBoard = board.children;
+    const statusMsg = document.getElementById("status");
+    const newGameBtn = document.getElementsByClassName("btn")[0];
 
     for (const elem of childElemsOfBoard){
         elem.classList.add("square");
@@ -13,13 +15,15 @@ document.addEventListener("DOMContentLoaded", () => {
     board.addEventListener("mouseover", e => editClassOnHover(e));
     // On mouseout removes "hover" class to gameboard square.
     board.addEventListener("mouseout", e => editClassOnHover(e));
+
+    newGameBtn.addEventListener("click", () => newGame(childElemsOfBoard, statusMsg));
 });
 
-const players = ["X", "O"];
 let currentPlayer = "X";
 let currentRound = 0;
 let gameActive = true;
 const gameState = Array(9).fill("");
+const players = ["X", "O"];
 const winningCombos = [
     [0,1,2],
     [3,4,5],
@@ -78,4 +82,19 @@ function checkWinner(){
             break;
         } 
     }
+}
+
+function newGame(squareElems, status){
+    currentPlayer = "X";
+    currentRound = 0;
+    gameActive = true;
+    gameState.fill("");
+
+    for (const elem of squareElems){
+        elem.setAttribute("class", "square");
+        elem.textContent = "";
+    }
+
+    status.classList.remove("you-won")
+    status.textContent = "Move your mouse over a square and click to play an X or an O.";
 }
